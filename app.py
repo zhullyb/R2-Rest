@@ -19,10 +19,13 @@ def index(path):
             abort(404)
     return send_file(r2_object.get('Body'), mimetype=r2_object.get('ContentType'), download_name=path)
 
-
 @app.errorhandler(404)
 def not_found(e):
     return send_file('assets/404.jpg', mimetype='image/jpg'), 404
+
+@app.errorhandler(500)
+def internal_error(e):
+    return send_file('assets/500.jpg', mimetype='image/jpg'), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True)
